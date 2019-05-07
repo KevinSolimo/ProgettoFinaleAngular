@@ -1,0 +1,16 @@
+.main-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.example-full-width {
+  width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+div {
+  margin:0;
+  padding:0;
+}
