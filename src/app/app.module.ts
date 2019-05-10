@@ -19,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
 
 //Http Import
 import { HttpClientModule } from '@angular/common/http';
@@ -28,6 +30,7 @@ import { ReaderQRComponent } from './reader-qr/reader-qr.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { LoginDialogComponent } from './dialog/login-dialog';
 
 //Maps AGM
 import { AgmCoreModule } from '@agm/core';
@@ -38,13 +41,16 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent }
 ];
 
+//
+
 @NgModule({
   declarations: [
     AppComponent,
     ReaderQRComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    LoginDialogComponent
   ],
   imports: [
     //AGM GoogleMaps
@@ -67,10 +73,13 @@ const appRoutes: Routes = [
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LoginDialogComponent]
 })
 
 export class AppModule { }

@@ -3,3 +3,6 @@
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+.icon32{
+  font-size: 32px;
+}
