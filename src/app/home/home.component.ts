@@ -7,7 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
- 
+  //Icon position user
+  icon = {
+    url: 'assets/images/Position.png',
+    scaledSize: {
+      width: 30,
+      height: 40
+    }
+  }
 
   ngOnInit() { }
 
