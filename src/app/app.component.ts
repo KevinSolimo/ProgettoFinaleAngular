@@ -28,8 +28,7 @@ export class AppComponent {
 
       this.loginDialogRef
         .afterClosed()
-        .pipe(filter(name => name))
-        .subscribe(name => console.log(name));
+        .subscribe(value => console.log(value));
     }
   }
 }

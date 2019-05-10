@@ -10,7 +10,10 @@ export class LoginDialogComponent {
 
     form: FormGroup;
 
-    data = {username : '', password : ''};
+    data = {
+        username: '',
+        password: ''
+    };
 
     constructor(
         private formBuilder: FormBuilder,
@@ -26,6 +29,12 @@ export class LoginDialogComponent {
     }
 
     submit(form) {
-        this.dialogRef.close(`${form.value.username}`);
+        
+        var val = {
+            username : form.value.username,
+            password : form.value.password
+        };
+
+        this.dialogRef.close(val);
     }
 }
