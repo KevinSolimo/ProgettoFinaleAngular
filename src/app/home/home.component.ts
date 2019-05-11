@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Monopattino } from './../MonopattiniModel/monopattino.model';
+
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs/internal/Observable';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,24 +13,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  o: Observable<Object>;
+  oFoo: Observable<Monopattino[]>;
+  fooData: Monopattino[] = [];
+
   //Icon position user
-  icon = {
+  iconPerson = {
     url: 'assets/images/Position.png',
     scaledSize: {
       width: 30,
       height: 40
     }
+  };
+
+  //Icon position monopattino
+  iconScooter = {
+    url: 'assets/images/monopattino.png',
+    scaledSize: {
+      width: 30,
+      height: 40
+    }
+  };
+
+  makeTypedRequest(): void {
+    //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe
+    this.oFoo = this.http.get<Monopattino[]>('http://localhost:3000/api/monopattini');
+    this.oFoo.subscribe(data => {
+      data.forEach(one => {
+        this.fooData.push(one);
+        console.log(one);
+      })
+    });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    
+  }
 
   //Cordinate Milano 45,4773; 9,1815
   lat: number = 45.4773;
   lng: number = 9.1815;
 
-  constructor() { this.findMe(); this.calcoloDistanza(); }
+  constructor(public http: HttpClient) {
 
-  calcoloDistanza() {
+    this.findMe();
+    this.calcoloDistanza();
+    this.makeTypedRequest();
+
+  }
+
+  calcoloDistanza(): void {
 
     //Punto A 45.522457, 9.209638
     //Punto B 45.501299, 9.197877
@@ -56,14 +94,15 @@ export class HomeComponent implements OnInit {
   }
 
   findMe() {
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
+        console.log("OK!");
       });
     } else {
       console.error("Geolocation is not supported by this browser.");
     }
   }
-
 }

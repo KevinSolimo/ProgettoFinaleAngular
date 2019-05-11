@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { LoginDialogComponent } from './dialog/login-dialog';
 
-import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-root',
@@ -11,24 +14,34 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent {
 
-  constructor(private dialog: MatDialog) { }
-
   title = 'Mono-Rent';
 
   operation = 'Login';
 
   loginDialogRef: MatDialogRef<LoginDialogComponent>;
 
+  o: Observable<Object>;
+
+  constructor(private dialog: MatDialog, public http: HttpClient) {
+    localStorage.getItem('logged') == 'true' ? this.operation = 'Logout' : this.operation = 'Login';
+  }
 
   openAddFileDialog(operation: String) {
-    if (operation == 'Login') {
+    if (this.operation == 'Login') {
       this.loginDialogRef = this.dialog.open(LoginDialogComponent, {
         hasBackdrop: false
       });
 
       this.loginDialogRef
         .afterClosed()
-        .subscribe(value => console.log(value));
+        .subscribe(value => {
+          localStorage.setItem('logged', 'true');
+          this.operation = 'Logout';
+          console.log(value);
+        });
+    } else if (this.operation == 'Logout') {
+      localStorage.setItem('logged', 'false');
+      this.operation = 'Login';
     }
   }
 }

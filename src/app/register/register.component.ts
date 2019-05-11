@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
       this.error = ("First name, Last name, Username, Password and Email must be correct");
     } else {
       this.http
-        .post('/register',
+        .post('/api/register',
           JSON.stringify({
             'name': name.value,
             'surname': surname.value,
