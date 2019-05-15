@@ -1,12 +1,17 @@
 .main-div{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto;
+  display: table;
+}
+
+.example-card {
+  max-width: 600px;
 }
 .example-full-width {
   width: 100%;
 }
-
+.example-50-width {
+  width: 50%;
+}
 td {
   padding-right: 8px;
 }

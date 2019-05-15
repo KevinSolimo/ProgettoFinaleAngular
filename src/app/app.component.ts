@@ -5,7 +5,9 @@ import { LoginDialogComponent } from './dialog/login-dialog';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+
+//Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,7 @@ export class AppComponent {
 
   o: Observable<Object>;
 
-  constructor(private dialog: MatDialog, public http: HttpClient) {
+  constructor(private dialog: MatDialog, public http: HttpClient, private router: Router) {
     localStorage.getItem('logged') == 'true' ? this.operation = 'Logout' : this.operation = 'Login';
   }
 
@@ -44,4 +46,13 @@ export class AppComponent {
       this.operation = 'Login';
     }
   }
+
+  onRegister() {
+    this.router.navigate(["/register"]);
+  }
+
+  onTitle() {
+    this.router.navigate([""]);
+  }
+
 }

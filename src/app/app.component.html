@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <h1>{{ title }}</h1>
+    <h1 (click)="onTitle()">{{ title }}</h1>
 
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
@@ -19,7 +19,7 @@
 
 <mat-menu #menu="matMenu">
     <button mat-menu-item (click)="openAddFileDialog(operation)">{{operation}}</button>
-    <button mat-menu-item>Item 2</button>
+    <button mat-menu-item (click)="onRegister()">Register</button>
 </mat-menu>
 
 <router-outlet></router-outlet>

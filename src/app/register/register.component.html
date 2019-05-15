@@ -1,88 +1,70 @@
 <div class="main-div">
-  <mat-card>
+  <mat-card class="example-card">
     <mat-toolbar color="primary" class="example-full-width">
       <mat-toolbar-row>
         <span>Register</span>
       </mat-toolbar-row>
     </mat-toolbar>
+    <mat-card-content>
+      <strong style="color:firebrick;text-align: center;">{{error}}</strong>
 
-    <strong style="color:firebrick;text-align: center;" >{{error}}</strong>
+      <br />
 
-    <br />
+      <!-- Name & Surname-->
+      <div>
+        <mat-form-field class="example-50-width">
+          <input matInput placeholder="First name" required #name>
+        </mat-form-field>
 
-    <!-- Name & Surname-->
-    <table class="example-full-width" cellspacing="0">
-      <tr>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="First name" required #name>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Last name" required #surname>
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
+        <mat-form-field class="example-50-width">
+          <input matInput placeholder="Last name" required #surname>
+        </mat-form-field>
+      </div>
+      <!-- Address -->
 
-    <!-- Address -->
-    <p>
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Address" #address>
       </mat-form-field>
-    </p>
 
-    <!-- City - State - PostCode -->
-    <table class="example-full-width" cellspacing="0">
-      <tr>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="City" #city>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="State" #state>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="" #postal>
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
 
-    <!-- Email-->
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Email" [formControl]="emailFormControl" required #email>
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailFormControl.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+      <!-- City - State - PostCode -->
+      <mat-form-field class="example-50-width">
+        <input matInput placeholder="City" #city>
+      </mat-form-field>
 
-    <!-- Username & Password-->
-    <table class="example-full-width" cellspacing="0">
-      <tr>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Username" required #user>
-          </mat-form-field>
-        </td>
-        <td>
-          <mat-form-field class="example-full-width">
-            <input matInput type="password" placeholder="Password" required #pass [type]="hide ? 'password' : 'text'">
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </mat-form-field>
-        </td>
-      </tr>
-    </table>
-    <button mat-raised-button class="example-full-width" color="primary"
-      (click)="onClick(name, surname,address,city,state,postal,email,user,pass)">Register</button>
+      <mat-form-field class="example-50-width">
+        <input matInput placeholder="State" #state>
+      </mat-form-field>
+
+      <mat-form-field class="example-50-width">
+        <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="" #postal>
+        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+      </mat-form-field>
+
+      <!-- Email-->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [formControl]="emailFormControl" required #email>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Username & Password-->
+
+      <mat-form-field class="example-50-width">
+        <input matInput placeholder="Username" required #user>
+      </mat-form-field>
+
+      <mat-form-field class="example-50-width">
+        <input matInput type="password" placeholder="Password" required #pass [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button class="example-full-width" color="primary"
+        (click)="onClick(name, surname,address,city,state,postal,email,user,pass)">Register</button>
+    </mat-card-content>
   </mat-card>
 </div>
