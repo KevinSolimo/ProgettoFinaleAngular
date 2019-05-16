@@ -7,7 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 //QRCode Reader
-import { NgQrScannerModule } from 'angular2-qrscanner';
+import { QrCodeReader } from './qr-code-reader.service';
 
 //Material Design Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,8 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //Http Import
 import { HttpClientModule } from '@angular/common/http';
@@ -54,8 +54,6 @@ const appRoutes: Routes = [
     LoginDialogComponent
   ],
   imports: [
-    //QR Reader
-    NgQrScannerModule,
     //AGM GoogleMaps
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCzUI8LYmnHPyFrtRT8Q8IEREZfOygUl-U'
@@ -80,7 +78,10 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [
+    //QR Reader
+    QrCodeReader
+  ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent]
 })

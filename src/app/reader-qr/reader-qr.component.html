@@ -1,15 +1,7 @@
 
 
 <!-- some.component.html -->
-<qr-scanner
-        [debug]="false"
-        [canvasWidth]="1080" 
-        [canvasHeight]="720" 
-        [stopAfterScan]="true"
-        [updateTime]="500"
-        (onRead)="decodedOutput($event)">> 
-</qr-scanner>
 {{data}}
-<input type="file" accept="image/*" capture="capture">
+<input type="file" accept="image/*" capture="capture" (change)="onFileChange($event)">
 
 
