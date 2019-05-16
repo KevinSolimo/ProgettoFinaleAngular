@@ -4,7 +4,7 @@
 <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng">
     <agm-marker [latitude]="lat" [longitude]="lng" [iconUrl]="iconPerson">
         <agm-info-window>
-            <h1>Ciao</h1>
+            <app-reader-qr></app-reader-qr>
         </agm-info-window>
     </agm-marker>
     <agm-marker *ngFor="let mono of fooData" [iconUrl]="iconScooter" [latitude]="mono.position.lat" [longitude]="mono.position.lng">

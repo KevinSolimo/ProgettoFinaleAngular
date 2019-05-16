@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 
 //QRCode Reader
+import { NgQrScannerModule } from 'angular2-qrscanner';
 
 //Material Design Animation
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -53,6 +54,8 @@ const appRoutes: Routes = [
     LoginDialogComponent
   ],
   imports: [
+    //QR Reader
+    NgQrScannerModule,
     //AGM GoogleMaps
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCzUI8LYmnHPyFrtRT8Q8IEREZfOygUl-U'
