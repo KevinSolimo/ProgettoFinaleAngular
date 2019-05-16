@@ -14,7 +14,7 @@ export class ReaderQRComponent implements OnInit {
 
   constructor(private qrReader: QrCodeReader) { }
 
-  data = "";
+  error = "";
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -23,7 +23,13 @@ export class ReaderQRComponent implements OnInit {
   onFileChange(event) {
     const file = event.target.files[0];
     this.subscription = this.qrReader.decode(file)
-      .subscribe(decodedString => this.data = (decodedString));
+      .subscribe(decodedString => {
+
+        decodedString == "error decoding QR Code" ?
+          this.error = "Error: QR code not recognized, try again." :
+          this.error = (decodedString)
+          
+      });
   }
   ngOnInit() {
   }

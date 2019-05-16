@@ -1,7 +1,13 @@
+<h2>
+    Scannerizza il codice QR presente sul monopatino
+</h2>
 
+<mat-icon onclick="$('#input').trigger('click'); return true;" class="icon32" center>camera_alt</mat-icon>
 
-<!-- some.component.html -->
-{{data}}
-<input type="file" accept="image/*" capture="capture" (change)="onFileChange($event)">
+<br />
 
+<h3>
+    <strong style="color:firebrick;text-align: center;">{{error}}</strong>
+</h3>
 
+<input id="input" type="file" accept="image/*" capture="capture" (change)="onFileChange($event)" hidden>
