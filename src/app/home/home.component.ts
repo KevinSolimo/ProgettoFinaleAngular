@@ -30,14 +30,14 @@ export class HomeComponent implements OnInit {
   iconScooter = {
     url: 'assets/images/monopattino.png',
     scaledSize: {
-      width: 30,
+      width: 50,
       height: 40
     }
   };
 
   makeTypedRequest(): void {
     //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe
-    this.oFoo = this.http.get<Monopattino[]>('http://localhost:3000/api/monopattini');
+    this.oFoo = this.http.get<Monopattino[]>('https://3000-e7a43567-abda-4ed8-9d88-e41194d34ad5.ws-eu0.gitpod.io/api/monopattini');
     this.oFoo.subscribe(data => {
       data.forEach(one => {
         this.fooData.push(one);
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   //Cordinate Milano 45,4773; 9,1815

@@ -17,7 +17,9 @@ export class ReaderQRComponent implements OnInit {
   error = "";
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   onFileChange(event) {
@@ -28,7 +30,7 @@ export class ReaderQRComponent implements OnInit {
         decodedString == "error decoding QR Code" ?
           this.error = "Error: QR code not recognized, try again." :
           this.error = (decodedString)
-          
+
       });
   }
   ngOnInit() {
