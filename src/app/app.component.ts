@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 //Router
 import { Router } from '@angular/router';
 
+import { MessageService } from './message.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -24,7 +26,7 @@ export class AppComponent {
 
   o: Observable<Object>;
 
-  constructor(private dialog: MatDialog, public http: HttpClient, private router: Router) {
+  constructor(private dialog: MatDialog, public http: HttpClient, private router: Router, private messageService: MessageService) {
     localStorage.getItem('logged') == 'true' ? this.operation = 'Logout' : this.operation = 'Login';
   }
 
@@ -38,11 +40,13 @@ export class AppComponent {
         .afterClosed()
         .subscribe(value => {
           localStorage.setItem('logged', 'true');
+          this.sendMessage(true);
           this.operation = 'Logout';
           console.log(value);
         });
     } else if (this.operation == 'Logout') {
       localStorage.setItem('logged', 'false');
+      this.sendMessage(false);
       this.operation = 'Login';
     }
   }
@@ -53,6 +57,10 @@ export class AppComponent {
 
   onTitle() {
     this.router.navigate([""]);
+  }
+
+  sendMessage(message): void {
+    this.messageService.sendMessage(message);
   }
 
 }

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Monopattino } from './../MonopattiniModel/monopattino.model';
 
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/internal/Observable';
+
+import { MessageService } from '../message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +19,11 @@ export class HomeComponent implements OnInit {
   o: Observable<Object>;
   oFoo: Observable<Monopattino[]>;
   fooData: Monopattino[] = [];
+
+  message: any;
+  subscription: Subscription;
+
+  logged: Boolean
 
   //Icon position user
   iconPerson = {
@@ -37,7 +45,7 @@ export class HomeComponent implements OnInit {
 
   makeTypedRequest(): void {
     //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe
-    this.oFoo = this.http.get<Monopattino[]>('https://3000-e7a43567-abda-4ed8-9d88-e41194d34ad5.ws-eu0.gitpod.io/api/monopattini');
+    this.oFoo = this.http.get<Monopattino[]>('http://localhost:3000/api/monopattini');
     this.oFoo.subscribe(data => {
       data.forEach(one => {
         this.fooData.push(one);
@@ -54,13 +62,20 @@ export class HomeComponent implements OnInit {
   lat: number = 45.4773;
   lng: number = 9.1815;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private messageService: MessageService) {
 
     this.findMe();
     this.calcoloDistanza();
     this.makeTypedRequest();
 
+    this.subscription = this.messageService.getMessage()
+      .subscribe(message => {
+        this.logged = message.text;
+      });
   }
+
+
+
 
   calcoloDistanza(): void {
 
