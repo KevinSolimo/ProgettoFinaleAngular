@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 
   makeTypedRequest(): void {
     //oFoo : Observable<Foo[]>; va dichiarato tra gli attributi della classe
-    this.oFoo = this.http.get<Monopattino[]>('http://localhost:3000/api/monopattini');
+    this.oFoo = this.http.get<Monopattino[]>('http://localhost:8080/api/monopattini');
     this.oFoo.subscribe(data => {
       data.forEach(one => {
         this.fooData.push(one);

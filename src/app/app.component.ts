@@ -4,13 +4,16 @@ import { LoginDialogComponent } from './dialog/login-dialog';
 
 import { Observable } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //Router
 import { Router } from '@angular/router';
 
 import { MessageService } from './message.service';
 
+//Cryoto
+import * as CryptoJS from 'crypto-js';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,10 +42,32 @@ export class AppComponent {
       this.loginDialogRef
         .afterClosed()
         .subscribe(value => {
-          localStorage.setItem('logged', 'true');
-          this.sendMessage(true);
-          this.operation = 'Logout';
-          console.log(value);
+          if (value != '') {
+            var passHash = CryptoJS.SHA256(value.password) + "";
+            this.http
+              .get('http://localhost:3000/api/login/' + value.username + '/' + passHash,
+                {
+                  headers:
+                    new HttpHeaders(
+                      {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Access-Control-Allow-Origin': '*'
+                      }
+                    )
+                }
+              )
+              .subscribe(data => {
+                var date: any = data;
+                console.log(date.state);
+                if (date.state == 'ok') {
+                  localStorage.setItem('logged', 'true');
+                  this.sendMessage(true);
+                  this.operation = 'Logout';
+                }
+              });
+            console.log(value);
+          }
         });
     } else if (this.operation == 'Logout') {
       localStorage.setItem('logged', 'false');

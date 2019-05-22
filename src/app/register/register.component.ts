@@ -12,6 +12,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 //Router
 import { Router } from '@angular/router';
 
+//Cryoto
+import * as CryptoJS from 'crypto-js';
+import { DataRowOutlet } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-register',
@@ -36,11 +39,16 @@ export class RegisterComponent implements OnInit {
   onClick(name: HTMLInputElement, surname: HTMLInputElement, address: HTMLInputElement, city: HTMLInputElement, state: HTMLInputElement, postal: HTMLInputElement, email: HTMLInputElement, user: HTMLInputElement, pass: HTMLInputElement): void {
 
     if (name.value == '' || surname.value == '' ||
-      email.value == '' || user.value == '' || pass.value == '' || Validators.email) {
+      email.value == '' || user.value == '' || pass.value == '') {
       this.error = ("First name, Last name, Username, Password and Email must be correct");
     } else {
+
+      var salt = CryptoJS.lib.WordArray.random(16) + "";
+      var passHash = CryptoJS.SHA256(pass.value) + "";
+      var hashPass = CryptoJS.HmacSHA256(passHash, salt) + "";
+      //A2F4154AD98C461261FDD155B93D8C2B13412426FC64A85FE823B9F5608DF75A
       this.http
-        .post('/api/register',
+        .post('http://localhost:3000/api/register',
           JSON.stringify({
             'name': name.value,
             'surname': surname.value,
@@ -50,7 +58,8 @@ export class RegisterComponent implements OnInit {
             'postal': postal.value,
             'email': email.value,
             'user': user.value,
-            'pass': pass.value
+            'pass': hashPass,
+            'salt': salt
           }),
           {
             headers:
@@ -64,10 +73,14 @@ export class RegisterComponent implements OnInit {
           }
         )
         .subscribe(data => {
-          console.log(data);
-
-          this.router.navigate([""]);
-
+          var date: any = data;
+          if (date.state == 'user exist') {
+            this.error = "Username already exist!"
+          } else if (date.state == 'user exist') {
+            this.error = "Error!"
+          } else {
+            this.router.navigate([""]);
+          }
         });
     }
   }
