@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 
 //Cryoto
 import * as CryptoJS from 'crypto-js';
-import { DataRowOutlet } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-register',
@@ -76,9 +75,7 @@ export class RegisterComponent implements OnInit {
           var date: any = data;
           if (date.state == 'user exist') {
             this.error = "Username already exist!"
-          } else if (date.state == 'user exist') {
-            this.error = "Error!"
-          } else {
+          } else if (date.state == 'ok') {
             this.router.navigate([""]);
           }
         });

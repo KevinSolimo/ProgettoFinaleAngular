@@ -68,6 +68,8 @@ export class HomeComponent implements OnInit {
     this.calcoloDistanza();
     this.makeTypedRequest();
 
+    localStorage.getItem('logged') == 'true' ? this.logged = true : this.logged = false;
+
     this.subscription = this.messageService.getMessage()
       .subscribe(message => {
         this.logged = message.text;
