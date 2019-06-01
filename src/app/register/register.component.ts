@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 //Cryoto
 import * as CryptoJS from 'crypto-js';
 
+import { State } from '../Model/state.model';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,8 +24,6 @@ import * as CryptoJS from 'crypto-js';
 })
 
 export class RegisterComponent implements OnInit {
-
-  o: Observable<Object>;
 
   constructor(public http: HttpClient, private router: Router) { }
 
@@ -47,7 +47,8 @@ export class RegisterComponent implements OnInit {
       var hashPass = CryptoJS.HmacSHA256(passHash, salt) + "";
       //A2F4154AD98C461261FDD155B93D8C2B13412426FC64A85FE823B9F5608DF75A
       this.http
-        .post('http://localhost:3000/api/register',
+      //https://3000-e7a43567-abda-4ed8-9d88-e41194d34ad5.ws-eu0.gitpod.io
+        .post<State>('https://3000-e7a43567-abda-4ed8-9d88-e41194d34ad5.ws-eu0.gitpod.io/api/register',
           JSON.stringify({
             'name': name.value,
             'surname': surname.value,
@@ -71,8 +72,7 @@ export class RegisterComponent implements OnInit {
               )
           }
         )
-        .subscribe(data => {
-          var date: any = data;
+        .subscribe(date => {
           if (date.state == 'user exist') {
             this.error = "Username already exist!"
           } else if (date.state == 'ok') {

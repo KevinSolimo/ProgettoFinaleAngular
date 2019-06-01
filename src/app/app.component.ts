@@ -13,7 +13,10 @@ import { MessageService } from './message.service';
 
 //Cryoto
 import * as CryptoJS from 'crypto-js';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+
+import { State } from './Model/state.model';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,7 +30,7 @@ export class AppComponent {
 
   loginDialogRef: MatDialogRef<LoginDialogComponent>;
 
-  o: Observable<Object>;
+  o: Observable<State>;
 
   constructor(private dialog: MatDialog, public http: HttpClient, private router: Router, private messageService: MessageService) {
     localStorage.getItem('logged') == 'true' ? this.operation = 'Logout' : this.operation = 'Login';
@@ -45,7 +48,8 @@ export class AppComponent {
           if (value != '') {
             var passHash = CryptoJS.SHA256(value.password) + "";
             this.http
-              .get('http://localhost:3000/api/login/' + value.username + '/' + passHash,
+            //https://3000-e7a43567-abda-4ed8-9d88-e41194d34ad5.ws-eu0.gitpod.io
+              .get<State>('https://3000-e7a43567-abda-4ed8-9d88-e41194d34ad5.ws-eu0.gitpod.io/api/login/' + value.username + '/' + passHash,
                 {
                   headers:
                     new HttpHeaders(
@@ -58,10 +62,10 @@ export class AppComponent {
                 }
               )
               .subscribe(data => {
-                var date: any = data;
-                console.log(date.state);
-                if (date.state == 'ok') {
+                console.log(data);
+                if (data.state == 'ok') {
                   localStorage.setItem('logged', 'true');
+                  localStorage.setItem('id_Utente', data.id_Utente);
                   this.sendMessage(true);
                   this.operation = 'Logout';
                 }

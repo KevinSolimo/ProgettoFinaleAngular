@@ -1,8 +1,15 @@
 <h2>
-    Scannerizza il codice QR presente sul monopatino
+	Scannerizza il codice QR presente sul monopatino
 </h2>
 
-<mat-icon onclick="$('#input').trigger('click'); return true;" class="icon32" center>camera_alt</mat-icon>
+<div style="text-align: center;">
+
+	<mat-icon onclick="$('#lock').trigger('click'); return true;" class="icon32" center>lock</mat-icon>
+	<br />
+  <mat-icon onclick="$('#unlock').trigger('click'); return true;" class="icon32" center>lock_open</mat-icon>
+  <br />
+  <mat-icon onclick="$('#broken').trigger('click'); return true;" class="icon32" center>build</mat-icon>
+</div>
 
 <br />
 
@@ -10,4 +17,6 @@
     <strong style="color:firebrick;text-align: center;">{{error}}</strong>
 </h3>
 
-<input id="input" type="file" accept="image/*" capture="capture" (change)="onFileChange($event)" hidden>
+<input id="unlock" type="file" accept="image/*" capture="capture" (change)="onUnlock($event)" hidden>
+<input id="lock" type="file" accept="image/*" capture="capture" (change)="onLock($event)" hidden>
+<input id="broken" type="file" accept="image/*" capture="capture" (change)="onBroken($event)" hidden>
