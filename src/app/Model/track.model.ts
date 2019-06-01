@@ -1,6 +1,11 @@
+export class Pos{
+  lat: number
+  lng: number
+}
 export class Track {
-  result: [{
-    lat: number
-    lng: number
-  }]
+  position: Array<Pos>
+  tempo : {
+    ora_Sblocco : Date
+    ora_Blocco : Date
+  }
 }

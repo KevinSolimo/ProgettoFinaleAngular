@@ -66,7 +66,6 @@ export class HomeComponent implements OnInit {
   constructor(public http: HttpClient, private messageService: MessageService) {
 
     this.findMe();
-    this.calcoloDistanza();
     this.makeTypedRequest();
 
     localStorage.getItem('logged') == 'true' ? this.logged = true : this.logged = false;
@@ -80,36 +79,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  calcoloDistanza(): void {
 
-    //Punto A 45.522457, 9.209638
-    //Punto B 45.501299, 9.197877
-
-    console.log(this.distanceBetweenCoordinates(45.522457, 9.209638, 45.501299, 9.197877));
-
-  }
-
-  degreesToRadians(degrees) {
-    return degrees * Math.PI / 180;
-  }
-
-  distanceBetweenCoordinates(lat1, lon1, lat2, lon2) {
-
-    const earthRadiusKm = 6371;
-
-    var dLat = this.degreesToRadians(lat2 - lat1);
-    var dLon = this.degreesToRadians(lon2 - lon1);
-
-    lat1 = this.degreesToRadians(lat1);
-    lat2 = this.degreesToRadians(lat2);
-
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-    return (earthRadiusKm * c);
-
-  }
 
   findMe() {
 

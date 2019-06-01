@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { State } from '../Model/state.model';
 import { Track } from '../Model/track.model';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   selector: 'app-reader-qr',
@@ -81,7 +82,18 @@ export class ReaderQRComponent implements OnInit {
               }
             )
             .subscribe(data => {
+              console.log(data.tempo);
               localStorage.setItem('date', '');
+              var somma = 0;
+              data.position.forEach((posizione, index, array) => {
+                var i = index + 1;
+                console.log(somma);
+                if (array.length > i) {
+                  somma += (this.distanceBetweenCoordinates(array[index].lat, array[index].lng, array[i].lat, array[i].lng));
+                }
+              });
+              var time = new Date(data.tempo.ora_Blocco).getTime() - new Date(data.tempo.ora_Sblocco).getTime();
+              console.log('Chilometri percorso : ' + somma + ' in ' + (time / 60000) + ' minuti');
             });
         }
 
@@ -119,6 +131,37 @@ export class ReaderQRComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  calcoloDistanza(): void {
+
+    //Punto A 45.522457, 9.209638
+    //Punto B 45.501299, 9.197877
+
+
+
+  }
+
+  degreesToRadians(degrees) {
+    return degrees * Math.PI / 180;
+  }
+
+  distanceBetweenCoordinates(lat1, lon1, lat2, lon2) {
+
+    const earthRadiusKm = 6371;
+
+    var dLat = this.degreesToRadians(lat2 - lat1);
+    var dLon = this.degreesToRadians(lon2 - lon1);
+
+    lat1 = this.degreesToRadians(lat1);
+    lat2 = this.degreesToRadians(lat2);
+
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return (earthRadiusKm * c);
+
   }
 
 }
