@@ -1,0 +1,17 @@
+<form>
+	<h1 mat-dialog-title>Problem</h1>
+	<mat-dialog-content>
+    <mat-form-field>
+      <mat-label>What's the problem?</mat-label>
+      <mat-select  #optione>
+        <mat-option  *ngFor="let option of options" [value]="option.value">
+          {{option.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" type="button" (click)="submit(optione)">Send Notification</button>
+    <button mat-raised-button color="warn" type="button" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</form>

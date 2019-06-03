@@ -8,7 +8,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { State } from '../Model/state.model';
 import { Track } from '../Model/track.model';
-import { HomeComponent } from '../home/home.component';
+
+import { MatDialog, MatDialogRef } from '@angular/material';
+
+import { RepairDialogComponent } from '../dialog/repair.dialog';
 
 @Component({
   selector: 'app-reader-qr',
@@ -21,7 +24,9 @@ export class ReaderQRComponent implements OnInit {
 
   error = "";
 
-  constructor(private qrReader: QrCodeReader, public http: HttpClient) { }
+  constructor(private qrReader: QrCodeReader, public http: HttpClient, private dialog: MatDialog) { }
+
+  repairDialogRef: MatDialogRef<RepairDialogComponent>;
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -108,6 +113,20 @@ export class ReaderQRComponent implements OnInit {
         if (decodedString == "error decoding QR Code") {
           this.error = "Error: QR code not recognized, try again."
         } else {
+
+          //OPEN DIALOG//
+          this.repairDialogRef = this.dialog.open(RepairDialogComponent, {
+            hasBackdrop: false
+          });
+
+          this.repairDialogRef
+            .afterClosed()
+            .subscribe(value => {
+              console.log(value);
+            });
+
+
+          //REQUEST BROKEN//
           this.http
             //https://8080-b170ea1e-2add-4b1e-8ece-21677fc9fc8e.ws-eu0.gitpod.io
             .get<State>('https://8080-b170ea1e-2add-4b1e-8ece-21677fc9fc8e.ws-eu0.gitpod.io/api/broken/' + decodedString,

@@ -35,6 +35,7 @@ import { LoginDialogComponent } from './dialog/login-dialog';
 
 //Maps AGM
 import { AgmCoreModule } from '@agm/core';
+import { RepairDialogComponent } from './dialog/repair.dialog';
 
 //Routing delle pagine
 const appRoutes: Routes = [
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    RepairDialogComponent
   ],
   imports: [
     //AGM GoogleMaps
@@ -83,7 +85,10 @@ const appRoutes: Routes = [
     QrCodeReader
   ],
   bootstrap: [AppComponent],
-  entryComponents: [LoginDialogComponent]
+  entryComponents: [
+    LoginDialogComponent,
+    RepairDialogComponent
+  ]
 })
 
 export class AppModule { }
