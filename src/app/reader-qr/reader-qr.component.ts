@@ -42,6 +42,7 @@ export class ReaderQRComponent implements OnInit {
         if (decodedString == "error decoding QR Code") {
           this.error = "Error: QR code not recognized, try again."
         } else {
+          this.error = "";
           this.http
             //https://8080-b170ea1e-2add-4b1e-8ece-21677fc9fc8e.ws-eu0.gitpod.io
             .get<State>('https://8080-b170ea1e-2add-4b1e-8ece-21677fc9fc8e.ws-eu0.gitpod.io/api/unlock/' + decodedString + '/' + localStorage.getItem('id_Utente'),
